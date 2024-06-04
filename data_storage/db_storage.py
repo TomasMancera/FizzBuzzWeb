@@ -51,5 +51,23 @@ class DBStorage(IDataStorage):
        cursor.execute("UPDATE fizzBuzz SET active = '0' WHERE number = ?", (data,))
        conn.commit()
        conn.close()
+    
+# Hard delete to be used by admin
+    def get_number(self,data):
+      conn = self.get_db_connection()
+      query = conn.execute(f'SELECT number FROM fizzBuzz WHERE number = {data}').fetchone()
+      conn.close()
+      return query
+       
+       
+    def hard_delete_fb(self,data):
+       conn = self.get_db_connection()
+       cursor = conn.cursor()
+       cursor.execute("DELETE FROM fizzBuzz WHERE number = ?", (data,))
+       conn.commit()
+       conn.close()
+       
+    
+
        
   

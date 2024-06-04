@@ -3,5 +3,13 @@ CREATE TABLE IF NOT EXISTS fizzBuzz(
     number INTEGER NOT NULL,
     resultFb TEXT NOT NULL,
     active INTEGER NOT NULL DEFAULT 1
-)
+);
+
+CREATE TABLE IF NOT EXISTS users(
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT "standard"
+);
+
 

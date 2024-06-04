@@ -1,32 +1,55 @@
+# Module docstring
+
+
 from typing import List
 from .i_problem_solver import IProblemSolver
 
-
 class FizzBuzz(IProblemSolver):
+    """Class for computing FizzBuzz for single values or lists of values."""
 
-  def compute_results(self, data: List) -> List:
-      result = []
-      line = ""
-      for element in data:
-          line =  self.__fizz_buzz(int(element))
-          result.append(element + " " +line)
-      return result
+    def compute_results(self, data: List[int]) -> List[str]:
+        """
+        Compute FizzBuzz for a list of integers and return the results.
 
-  def calc_one_fb(self,data: any) -> any:
-     return self.__fizz_buzz(int(data))
+        Args:
+            data (List[int]): A list of integers to compute FizzBuzz for.
 
-  def __fizz_buzz(self,number: int) -> str:      
-      result = str(number)
-      fizz_flag = False
-      
-      if number % 3 == 0:
-        result = "Fizz"
-        fizz_flag = True
+        Returns:
+            List[str]: A list of strings representing the FizzBuzz results.
+        """
+        result = []
+        for element in data:
+            fizzbuzz_result = self.__fizz_buzz(int(element))
+            result.append(f"{element} {fizzbuzz_result}")
+        return result
 
-      if number % 5 == 0:
-        if fizz_flag:
-          result += "Buzz"
-          return result
-        result = "Buzz"
-        
-      return result
+    def calc_one_fb(self, data: any) -> str:
+        """
+        Compute FizzBuzz for a single data point.
+
+        Args:
+            data (any): The data point to compute FizzBuzz for, expected to be an integer or a string that can be converted to an integer.
+
+        Returns:
+            str: The FizzBuzz result.
+        """
+        return self.__fizz_buzz(int(data))
+
+    def __fizz_buzz(self, number: int) -> str:
+        """
+        Helper method to compute the FizzBuzz result for a given number.
+
+        Args:
+            number (int): The number to compute FizzBuzz for.
+
+        Returns:
+            str: 'Fizz', 'Buzz', 'FizzBuzz', or the number as a string based on FizzBuzz rules.
+        """
+        result = str(number)
+        if number % 3 == 0:
+            result = "Fizz"
+            if number % 5 == 0:
+                result += "Buzz"
+        elif number % 5 == 0:
+            result = "Buzz"
+        return result
