@@ -9,7 +9,7 @@ class User:
         cursor = conn.cursor()
         
         try:
-            # Verificar si el usuario ya existe
+            # verify if user already exist
             cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
             user = cursor.fetchone()
             
@@ -17,10 +17,10 @@ class User:
                 return True 
             else:
             
-                # Generar el hash de la contraseña
+                # generate password hash
                 hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
-                # Insertar el nuevo usuario en la base de datos
+                # Insert the new user to the DBD
                 query = "INSERT INTO users (username, password) VALUES (?, ?)"
                 cursor.execute(query, (username, hashed_password))
                 
@@ -37,7 +37,7 @@ class User:
         cursor = conn.cursor()
 
         try:
-            # Verificar si el usuario existe y obtener la contraseña hasheada
+             # verify if user already exist and get the hashed password
             query_password = cursor.execute("SELECT password FROM users WHERE username = ?", (username,)).fetchone()
             conn.close()
             
@@ -45,7 +45,8 @@ class User:
                 return False
             
             valid_password = query_password[0]
-            # Verificar si la contraseña es válida
+            
+            # Verify hashed password
             if check_password_hash(valid_password, password):
                 return True
             else:

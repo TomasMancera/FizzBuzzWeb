@@ -73,7 +73,7 @@ def login():
             if user.login(username, password):
                 token = jwt.encode({
                     'user': username,
-                    'exp': datetime.utcnow() + timedelta(minutes=10)
+                    'exp': datetime.utcnow() + timedelta(minutes=30)
                 }, app.config['SECRET_KEY'], algorithm="HS256")
                 
                 response = make_response(redirect(url_for("success")))
@@ -86,7 +86,7 @@ def login():
                 flash('Invalid username or password!', 'danger')
                 return redirect(url_for('login'))
         except Exception as e:
-            # Imprimir cualquier excepción que ocurra
+            
             print(f"An error occurred: {e}")
             return f"An error occurred: {e}", 400
     
@@ -96,7 +96,7 @@ def login():
 @app.route('/logout', methods=["POST","GET"])
 @token_required
 def logout(payload):
-    """Logs out the user by removing the token cookie and adding the token to the blacklist."""
+    """Logs out the user by removing the token cookie"""
     token = request.cookies.get('token')
     if token:
         response = make_response(redirect(url_for('login')))
@@ -158,4 +158,3 @@ if __name__ == '__main__':
     #user.add_admin()
     app.run(host='0.0.0.0', port=81)
 
-#todo-- plantilla exito y logout

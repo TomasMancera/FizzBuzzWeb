@@ -52,7 +52,7 @@ class MyApp:
     
     def hard_delete_data(self,number):
         query = self.db_storage.get_number(number)
-        if query[0] is None:
+        if query is None:
             return "Not Found", 404
         self.db_storage.hard_delete_fb(number)
         return "No content-hard delete", 204

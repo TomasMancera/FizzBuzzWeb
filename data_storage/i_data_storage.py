@@ -29,3 +29,7 @@ class IDataStorage(ABC):
     @abstractmethod
     def delete_fb(self, data):
         """Abstract method to delete (or deactivate) a fizzbuzz record."""
+
+    @abstractmethod
+    def hard_delete_fb(self, data):
+        """Abstract method to hard delete a fizzbuzz record."""
